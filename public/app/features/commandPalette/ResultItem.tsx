@@ -94,7 +94,8 @@ const getResultItemStyles = (theme: GrafanaTheme2) => {
         bottom: 0,
         width: theme.spacing(0.5),
         borderRadius: theme.shape.radius.default,
-        backgroundImage: theme.colors.gradients.brandVertical,
+        // Psiphon change - add Psiphon orange as active highlight color
+        background: theme.colors.psiphon.psiphonOrangeLight,
       },
     }),
     actionContainer: css({

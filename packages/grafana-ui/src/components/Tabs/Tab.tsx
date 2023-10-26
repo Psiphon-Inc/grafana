@@ -103,6 +103,7 @@ const getStyles = (theme: GrafanaTheme2) => {
         },
       },
     }),
+    // Psiphon change - change active highlight color to Psiphon orange
     activeStyle: css({
       label: 'activeTabStyle',
       color: theme.colors.text.primary,
@@ -113,7 +114,7 @@ const getStyles = (theme: GrafanaTheme2) => {
       },
 
       '&::before': {
-        backgroundImage: theme.colors.gradients.brandHorizontal,
+        background: theme.colors.psiphon.psiphonOrangeLight,
       },
     }),
     suffix: css({

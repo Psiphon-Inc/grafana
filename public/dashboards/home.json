@@ -2,7 +2,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": null,
+      "content": "<div class=\"text-center dashboard-header\">\n  <span>Home Dashboard</span>\n</div>",
       "gridPos": {
         "h": 3,
         "w": 24,
@@ -12,45 +12,42 @@
       "id": 1,
       "title": "",
       "transparent": false,
-      "type": "welcome"
+      "type": "text"
     },
     {
-      "datasource": null,
       "folderId": 0,
       "gridPos": {
-        "h": 15,
+        "h": 17,
         "w": 12,
         "x": 0,
-        "y": 4
+        "y": 6
       },
+      "transparent": false,
       "headings": true,
       "id": 3,
-      "limit": 30,
+      "limit": 4,
       "links": [],
-      "options": {},
       "query": "",
       "recent": true,
       "search": false,
       "starred": true,
       "tags": [],
-      "title": "Dashboards",
+      "title": "",
       "type": "dashlist"
     },
     {
-      "datasource": null,
       "gridPos": {
-        "h": 15,
+        "h": 17,
         "w": 12,
         "x": 12,
-        "y": 4
+        "y": 6
       },
+      "editable": true,
+      "error": false,
+      "transparent": false,
       "id": 4,
-      "links": [],
-      "options": {
-        "feedUrl": "https://grafana.com/blog/news.xml"
-      },
-      "title": "Latest from the blog",
-      "type": "news"
+      "title": "",
+      "type": "pluginlist"
     }
   ],
   "schemaVersion": 22,

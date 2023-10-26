@@ -2,9 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
-  <title>
-    {{ Subject .Subject .TemplateData "{{ .InvitedBy }} has added you to the {{ .OrgName }} organization" }}
-  </title>
+  <title>{{ Subject .Subject .TemplateData "{{ .InvitedBy }} has added you to the {{ .OrgName }} organization" }}</title>
   {{ __dangerouslyInjectHTML `<!--[if !mso]><!-->` }}
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   {{ __dangerouslyInjectHTML `<!--<![endif]-->` }}
@@ -83,7 +81,7 @@
 
   </style>
   <style type="text/css">
-    @media only screen and (max-width:480px) {
+    @media only screen and (max-width:479px) {
       table.mj-full-width-mobile {
         width: 100% !important;
       }
@@ -115,8 +113,8 @@
                         <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                           <tbody>
                             <tr>
-                              <td style="width:200px;">
-                                <img height="auto" src="https://grafana.com/static/assets/img/logo_new_transparent_light_400x100.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="200">
+                              <td style="width:300px;">
+                                <img src="https://psix.ca/public/img/pde_icon.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="300" height="auto">
                               </td>
                             </tr>
                           </tbody>
@@ -146,7 +144,8 @@
                       <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                         <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;">
                           <h2>You have been added to {{ .OrgName }}</h2>
-                          <strong>{{ .InvitedBy }}</strong> has added you to the <strong>{{ .OrgName }}</strong> organization in Grafana.
+                          {{ __dangerouslyInjectHTML `<!-- Psiphon change - change organization information -->` }}
+                          <strong>{{ .InvitedBy }}</strong> has added you to the <strong>{{ .OrgName }}</strong> organization.
                         </div>
                       </td>
                     </tr>
@@ -166,7 +165,8 @@
                           <tbody>
                             <tr>
                               <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#3D71D9;" valign="middle">
-                                <a href="{{ .AppUrl }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> Login to Grafana </a>
+                                <a href="{{ .AppUrl }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank">
+                                  {{ __dangerouslyInjectHTML `<!-- Psiphon change - change organization information -->` }} Login </a>
                               </td>
                             </tr>
                           </tbody>
@@ -204,7 +204,7 @@
                   <tbody>
                     <tr>
                       <td align="center" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                        <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: center; color: #000000;">&copy; {{ now | date "2006" }} Grafana Labs. Sent by <a href="{{ .AppUrl }}" style="color: #6E9FFF;">Grafana v{{ .BuildVersion }}</a>.</div>
+                        <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: center; color: #000000;">{{ __dangerouslyInjectHTML `<!-- Psiphon change - replace footer info with Psiphon footer info -->` }} &copy; {{ now | date "2006" }} Psiphon Inc. Sent by <a href="https://psix.ca" style="color: #6E9FFF;">PDE v{{ .BuildVersion }}</a>.</div>
                       </td>
                     </tr>
                   </tbody>

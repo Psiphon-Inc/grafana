@@ -6,7 +6,8 @@
   <mj-head>
     <!-- ⬇ Don't forget to specifify an email subject below! ⬇ -->
     <mj-title>
-      {{ Subject .Subject .TemplateData "{{ .InvitedBy }} has invited you to join Grafana" }}
+      <!-- Psiphon change - change organization name information in email subject -->
+      {{ Subject .Subject .TemplateData "{{ .InvitedBy }} has invited you to join the Psiphon Data Engine" }}
     </mj-title>
     <mj-include path="./partials/layout/head.mjml" />
   </mj-head>

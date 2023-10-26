@@ -1,4 +1,4 @@
-{{HiddenSubject .Subject "Welcome to Grafana, please complete your sign up!"}}
+{{HiddenSubject .Subject "Welcome to the Psiphon Data Engine, please complete your sign up!"}}
 
 Complete the signup
 
@@ -8,5 +8,4 @@ in the sign up form or use the link below.
 
 {{.SignUpUrl}}
 
-
-Sent by Grafana v{{.BuildVersion}} (c) {{now | date "2006"}} Grafana Labs
+Sent by PDE v{{.BuildVersion}} (c) {{now | date "2006"}} Psiphon Inc.

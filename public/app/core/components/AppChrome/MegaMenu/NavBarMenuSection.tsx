@@ -108,7 +108,8 @@ const getStyles = (theme: GrafanaTheme2) => ({
       transform: 'translateY(-50%)',
       width: theme.spacing(0.5),
       borderRadius: theme.shape.radius.default,
-      backgroundImage: theme.colors.gradients.brandVertical,
+      // Psiphon change - change active highlight color to Psiphon orange
+      backgroundImage: theme.colors.psiphon.psiphonOrangeLight,
     },
   }),
   hasActiveChild: css({

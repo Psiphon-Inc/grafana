@@ -19,11 +19,7 @@ Value:
 {{end}}
 {{end}}
 
-View your Alert rule:
+Check your Dashboards:
 {{.RuleUrl}}"
 
-Go to the Alerts page:
-{{.AlertPageUrl}}
-
-
-Sent by Grafana v{{.BuildVersion}} (c) {{now | date "2006"}} Grafana Labs
+Sent by PDE v{{.BuildVersion}} (c)  {{now | date "2006"}} Psiphon Inc.

@@ -12,7 +12,6 @@ You have {{ len .Alerts.Firing }} firing alert(s), and {{ len .Alerts.Resolved }
 -------------
 {{ template "__default_alerts_summarize" .Alerts.Resolved }}
 {{- end }}
-Go to the Alerts page: {{ .AlertPageUrl }}
 {{- end -}}
 
 {{- define "__default_alerts_summarize" -}}
@@ -62,5 +61,4 @@ Annotations: {{ template "__default_sorted_pairs" $annotations }}
     {{ template "__default_message" . }}
 {{- end }}
 
-
-Sent by Grafana v{{.BuildVersion}} (c) {{now | date "2006"}} Grafana Labs
+Sent by PDE v{{.BuildVersion}} (c) {{now | date "2006"}} Psiphon Inc.

@@ -5,6 +5,7 @@ import { FeatureState, SelectableValue, getBuiltInThemes, ThemeRegistryItem } fr
 import { selectors } from '@grafana/e2e-selectors';
 import { config, reportInteraction } from '@grafana/runtime';
 import { Preferences as UserPreferencesDTO } from '@grafana/schema/src/raw/preferences/x/preferences_types.gen';
+// Psiphon change - remove unused import
 import {
   Button,
   Field,
@@ -130,26 +131,21 @@ export class SharedPreferences extends PureComponent<Props, State> {
   };
 
   render() {
-    const { theme, timezone, weekStart, homeDashboardUID, language } = this.state;
+    // Psiphon change - remove unused theme variable
+    const { timezone, weekStart, homeDashboardUID, language } = this.state;
     const { disabled } = this.props;
     const styles = getStyles();
     const languages = getLanguageOptions();
-    const currentThemeOption = this.themeOptions.find((x) => x.value === theme) ?? this.themeOptions[0];
+    // Psiphon change - remove unused check for theme options
 
     return (
       <Form onSubmit={this.onSubmitForm}>
         {() => {
+          // Psiphon change - remove theme change radio buttons in user preferences form.
+          // We are only supporting light theme for now
           return (
             <>
               <FieldSet label={<Trans i18nKey="shared-preferences.title">Preferences</Trans>} disabled={disabled}>
-                <Field label={t('shared-preferences.fields.theme-label', 'Interface theme')}>
-                  <Select
-                    options={this.themeOptions}
-                    value={currentThemeOption}
-                    onChange={this.onThemeChanged}
-                    inputId="shared-preferences-theme-select"
-                  />
-                </Field>
 
                 <Field
                   label={
