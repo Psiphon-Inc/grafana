@@ -1,0 +1,11 @@
+DashboardPage Given a simple dashboard only calls initDashboard once when wrapped in AppChrome
+Signup Page renders correctly
+Login Page renders correctly
+SharedPreferences renders the theme preference
+SharedPreferences saves the users new preferences
+SharedPreferences saves the users default preferences
+RelativeTimePicker should not be able to apply range via quick options
+Render should update document title
+Render should not include hideFromBreadcrumb nodes in title
+DashboardPage Given a simple dashboard Should update title
+PublicDashboardPage Given a simple public dashboard Should update title
