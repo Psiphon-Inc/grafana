@@ -5,9 +5,12 @@ import { GrafanaTheme2, NavModelItem } from '@grafana/data';
 import { Components } from '@grafana/e2e-selectors';
 import { Icon, IconButton, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { useGrafana } from 'app/core/context/GrafanaContext';
+// Psiphon change - import contextSrv needed for permissions information
+import { contextSrv } from 'app/core/core';
 import { t } from 'app/core/internationalization';
 import { HOME_NAV_ID } from 'app/core/reducers/navModel';
-import { useSelector } from 'app/types';
+// Psiphon change - import AccessControlAction needed for permissions information
+import { AccessControlAction, useSelector } from 'app/types';
 
 import { Breadcrumbs } from '../../Breadcrumbs/Breadcrumbs';
 import { buildBreadcrumbs } from '../../Breadcrumbs/utils';
@@ -41,24 +44,30 @@ export function NavToolbar({
   const homeNav = useSelector((state) => state.navIndex)[HOME_NAV_ID];
   const styles = useStyles2(getStyles);
   const breadcrumbs = buildBreadcrumbs(sectionNav, pageNav, homeNav);
+  // Psiphon change - check if user can create Dashboards. If yes, the user is an Admin or
+  // Editor. Menu toggle button should only be available to Admin or Editor users.
+  const hasMenu = contextSrv.hasPermission(AccessControlAction.DashboardsCreate);
 
+  // Psiphon change - add a check to see if the user is admin or editor to show the menu
   return (
     <div data-testid={Components.NavToolbar.container} className={styles.pageToolbar}>
-      <div className={styles.menuButton}>
-        <IconButton
-          id={TOGGLE_BUTTON_ID}
-          name="bars"
-          tooltip={
-            state.megaMenuOpen
-              ? t('navigation.toolbar.close-menu', 'Close menu')
-              : t('navigation.toolbar.open-menu', 'Open menu')
-          }
-          tooltipPlacement="bottom"
-          size="xl"
-          onClick={onToggleMegaMenu}
-          data-testid={Components.NavBar.Toggle.button}
-        />
-      </div>
+      {hasMenu && (
+        <div className={styles.menuButton}>
+          <IconButton
+            id={TOGGLE_BUTTON_ID}
+            name="bars"
+            tooltip={
+              state.megaMenuOpen
+                ? t('navigation.toolbar.close-menu', 'Close menu')
+                : t('navigation.toolbar.open-menu', 'Open menu')
+            }
+            tooltipPlacement="bottom"
+            size="xl"
+            onClick={onToggleMegaMenu}
+            data-testid={Components.NavBar.Toggle.button}
+          />
+        </div>
+      )}
       <Breadcrumbs breadcrumbs={breadcrumbs} className={styles.breadcrumbsWrapper} />
       <div className={styles.actions}>
         {actions}
