@@ -26,7 +26,7 @@ const LoginBackground: FC<BrandComponentProps> = ({ className, children }) => {
       right: 0,
       bottom: 0,
       top: 0,
-      background: `url('public/img/grafana-psiphon-login.png')`;
+      background: `url('public/img/grafana-psiphon-login.png')`,
       backgroundPosition: 'top center',
       backgroundSize: 'auto',
       backgroundRepeat: 'no-repeat',
