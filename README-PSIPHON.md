@@ -51,7 +51,18 @@ This is a summary of the Psiphon specific content changes.
 - Hide search bar for users that are not admin or editor.
 - Update home.json file to our custom home.json file.
 
-## Upgrading
+## Automatic Upgrade
+
+There is a script which can be used to automatically attempt to upgrade the Psiphon fork of Grafana to a newer version of upstream Grafana. It essentially follows the steps of the manual upgrade outlined below. The script and related files are in the `psiphon-upgrade` directory.
+
+- The `upgrade.sh` file is the script that runs the upgrade steps.
+- The `expectedToFail.txt` file contains a list of tests that are expected to fail (used by `upgrade.sh` to determine if the tests failing were unexpected).
+- The `reporter.sh` file is a script that creates a report on the upgrade attempt, which includes info about whether it succeeded or failed, and if it failed, it includes the cause of the failure.
+- The `.env` file contains a Slack token that `reporter.sh` uses to send the report to a Slack channel.
+
+The aim of the automation is to have `upgrade.sh` run automatically in a cronjob and notify us when there is a new upstream tag to be merged, to attempt to merge it, and to notify us of the status of the merge. If the script is run manually the `reporter.sh` output to Slack is not necessary and steps can be modified.
+
+## Manual Upgrade
 
 These instructions will help you to upgrade to a newer version of Grafana while keeping the custom Psiphon changes.
 
