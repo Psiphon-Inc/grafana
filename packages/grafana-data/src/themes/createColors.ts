@@ -2,6 +2,8 @@ import { merge } from 'lodash';
 
 import { alpha, darken, emphasize, getContrastRatio, lighten } from './colorManipulator';
 import { palette } from './palette';
+// Psiphon change - import Psiphon theme colors
+import { psiphonTheme } from './psiphonTheme';
 import { DeepPartial, ThemeRichColor } from './types';
 
 /** @internal */
@@ -45,6 +47,12 @@ export interface ThemeColorsBase<TColor> {
   gradients: {
     brandVertical: string;
     brandHorizontal: string;
+  };
+
+  // Psiphon change - add Psiphon theme colors to the theme type
+  psiphon: {
+    psiphonOrangeLight: string;
+    psiphonOrangeDark: string;
   };
 
   action: {
@@ -161,6 +169,12 @@ class DarkColors implements ThemeColorsBase<Partial<ThemeRichColor>> {
     brandVertical: 'linear-gradient(0.01deg, #F55F3E 0.01%, #FF8833 99.99%)',
   };
 
+  // Psiphon change - add Psiphon colors to dark theme (not used yet)
+  psiphon = {
+    psiphonOrangeLight: psiphonTheme.psiphonOrangeLight,
+    psiphonOrangeDark: psiphonTheme.psiphonOrangeDark,
+  };
+
   contrastThreshold = 3;
   hoverFactor = 0.03;
   tonalOffset = 0.15;
@@ -172,8 +186,9 @@ class LightColors implements ThemeColorsBase<Partial<ThemeRichColor>> {
   blackBase = '36, 41, 46';
 
   primary = {
-    main: palette.blueLightMain,
-    border: palette.blueLightText,
+    // Psiphon change - use Psiphon orange colors for primary
+    main: psiphonTheme.psiphonOrangeDark,
+    border: psiphonTheme.psiphonOrangeLight,
     text: palette.blueLightText,
   };
 
@@ -241,6 +256,12 @@ class LightColors implements ThemeColorsBase<Partial<ThemeRichColor>> {
   gradients = {
     brandHorizontal: 'linear-gradient(90deg, #FF8833 0%, #F53E4C 100%)',
     brandVertical: 'linear-gradient(0.01deg, #F53E4C -31.2%, #FF8833 113.07%)',
+  };
+
+  // Psiphon change - add Psiphon theme colors to the light theme.
+  psiphon = {
+    psiphonOrangeLight: psiphonTheme.psiphonOrangeLight,
+    psiphonOrangeDark: psiphonTheme.psiphonOrangeDark,
   };
 
   contrastThreshold = 3;

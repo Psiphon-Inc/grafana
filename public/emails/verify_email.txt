@@ -5,5 +5,4 @@ Hi {{.Name}},
 Copy and paste the following link directly in your browser to verify your email within {{.VerificationEmailLifetimeHours}} hour(s).
 {{.AppUrl}}user/email/update?code={{.Code}}
 
-
-Sent by Grafana v{{.BuildVersion}} (c) {{now | date "2006"}} Grafana Labs
+Sent by PDE v{{.BuildVersion}} (c) {{now | date "2006"}} Psiphon Inc.

@@ -1,5 +1,6 @@
 <mj-column background-color="transparent">
   <mj-text align="center">
-    &copy; {{ now | date "2006" }} Grafana Labs. Sent by <a href="{{ .AppUrl }}">Grafana v{{ .BuildVersion }}</a>.
+    <!-- Psiphon change - replace footer info with Psiphon footer info -->
+    &copy; {{ now | date "2006" }} Psiphon Inc. Sent by <a href="https://psix.ca">PDE v{{ .BuildVersion }}</a>.
   </mj-text>
 </mj-column>
