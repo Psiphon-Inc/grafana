@@ -8,10 +8,14 @@ import { Trans } from '@grafana/i18n';
 import { locationSearchToObject, locationService, useScopes } from '@grafana/runtime';
 import { ErrorBoundaryAlert, floatingUtils, getDragStyles, LinkButton, useStyles2 } from '@grafana/ui';
 import { useGrafana } from 'app/core/context/GrafanaContext';
+// Psiphon change - import contextSrv and AccessControlAction needed for permissions information
+import { contextSrv } from 'app/core/core';
 import { useMediaQueryMinWidth } from 'app/core/hooks/useMediaQueryMinWidth';
 import store from 'app/core/store';
 import { CommandPalette } from 'app/features/commandPalette/CommandPalette';
 import { ScopesDashboards } from 'app/features/scopes/dashboards/ScopesDashboards';
+// Psiphon change - import AccessControlAction needed for permissions information
+import { AccessControlAction } from 'app/types/accessControl';
 
 import { AppChromeMenu } from './AppChromeMenu';
 import { AppChromeService, DOCKED_LOCAL_STORAGE_KEY } from './AppChromeService';
@@ -39,7 +43,10 @@ export function AppChrome({ children }: Props) {
   const state = chrome.useState();
   const scopes = useScopes();
 
-  const menuDockedAndOpen = !state.chromeless && state.megaMenuDocked && state.megaMenuOpen;
+  // Psiphon change - check if user can create Dashboards. If yes, the user is an Admin or
+  // Editor. The mega menu (docked or overlay) should only be available to Admin or Editor users.
+  const hasMenu = contextSrv.hasPermission(AccessControlAction.DashboardsCreate);
+  const menuDockedAndOpen = !state.chromeless && state.megaMenuDocked && state.megaMenuOpen && hasMenu;
   const isScopesDashboardsOpen = Boolean(
     scopes?.state.enabled && scopes?.state.drawerOpened && !scopes?.state.readOnly
   );
@@ -153,7 +160,8 @@ export function AppChrome({ children }: Props) {
           )}
         </div>
       </div>
-      {!state.chromeless && !state.megaMenuDocked && <AppChromeMenu />}
+      {/* Psiphon change - hide the overlay mega menu for users that are not admin or editor */}
+      {!state.chromeless && !state.megaMenuDocked && hasMenu && <AppChromeMenu />}
       {!state.chromeless && <CommandPalette />}
       {shouldShowReturnToPrevious && state.returnToPrevious && (
         <ReturnToPrevious href={state.returnToPrevious.href} title={state.returnToPrevious.title} />

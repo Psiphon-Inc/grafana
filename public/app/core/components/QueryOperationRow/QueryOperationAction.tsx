@@ -61,7 +61,8 @@ const getStyles = (theme: GrafanaTheme2) => {
         height: 3,
         borderRadius: theme.shape.radius.default,
         bottom: -8,
-        backgroundImage: theme.colors.gradients.brandHorizontal,
+        // Psiphon change - change active highlight color to Psiphon orange
+        background: theme.colors.psiphon.psiphonOrangeLight,
       },
     }),
   };

@@ -7,7 +7,7 @@ import {
   shouldRenderInviteUserButton,
   performInviteUserClick,
 } from 'app/core/components/AppChrome/TopBar/InviteUserButtonUtils';
-import { changeTheme } from 'app/core/services/theme';
+// Psiphon change - remove unused changeTheme import due to theme action removal
 import { currentMockApiState, toggleMockApiAndReload, togglePseudoLocale } from 'app/dev-utils';
 import { useSelector } from 'app/types/store';
 
@@ -79,31 +79,9 @@ function navTreeToActions(navTree: NavModelItem[], parents: NavModelItem[] = [])
 }
 
 function getGlobalActions(): CommandPaletteAction[] {
-  const actions: CommandPaletteAction[] = [
-    {
-      id: 'preferences/theme',
-      name: t('command-palette.action.change-theme', 'Change theme'),
-      keywords: 'interface color dark light',
-      section: t('command-palette.section.preferences', 'Preferences'),
-      priority: PREFERENCES_PRIORITY,
-    },
-    {
-      id: 'preferences/dark-theme',
-      name: t('command-palette.action.dark-theme', 'Dark'),
-      keywords: 'dark theme',
-      perform: () => changeTheme('dark'),
-      parent: 'preferences/theme',
-      priority: PREFERENCES_PRIORITY,
-    },
-    {
-      id: 'preferences/light-theme',
-      name: t('command-palette.action.light-theme', 'Light'),
-      keywords: 'light theme',
-      perform: () => changeTheme('light'),
-      parent: 'preferences/theme',
-      priority: PREFERENCES_PRIORITY,
-    },
-  ];
+  // Psiphon change - remove theme change option from command palette because we are not
+  // supporting dark theme
+  const actions: CommandPaletteAction[] = [];
 
   if (process.env.NODE_ENV === 'development') {
     // eslint-disable @grafana/i18n/no-untranslated-strings

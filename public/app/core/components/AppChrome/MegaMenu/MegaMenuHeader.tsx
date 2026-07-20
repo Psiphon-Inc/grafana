@@ -82,10 +82,13 @@ const getStyles = (theme: GrafanaTheme2) => ({
     height: getChromeHeaderLevelHeight(),
     flexShrink: 0,
   }),
+  // Psiphon change - size the logo slot to fit the aspect ratio of the PDE logo (726x45)
   img: css({
     alignSelf: 'center',
-    height: theme.spacing(3),
-    width: theme.spacing(3),
+    height: theme.spacing(2),
+    width: theme.spacing(32.27),
+    maxWidth: '30vw',
+    objectFit: 'contain',
   }),
   mobileCloseButton: css({
     [theme.breakpoints.up('md')]: {

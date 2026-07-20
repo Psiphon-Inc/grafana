@@ -12,6 +12,8 @@ import { useGrafana } from 'app/core/context/GrafanaContext';
 import { contextSrv } from 'app/core/core';
 import { useMediaQueryMinWidth } from 'app/core/hooks/useMediaQueryMinWidth';
 import { HOME_NAV_ID } from 'app/core/reducers/navModel';
+// Psiphon change - import AccessControlAction needed for permissions information
+import { AccessControlAction } from 'app/types/accessControl';
 import { useSelector } from 'app/types/store';
 
 import { Branding } from '../../Branding/Branding';
@@ -60,12 +62,17 @@ export const SingleTopBar = memo(function SingleTopBar({
   const breadcrumbs = buildBreadcrumbs(sectionNav, pageNav, homeNav);
   const unifiedHistoryEnabled = config.featureToggles.unifiedHistory;
   const isSmallScreen = !useMediaQueryMinWidth('sm');
+  // Psiphon change - check if user can create Dashboards. If yes, the user is an Admin or
+  // Editor. Menu toggle and search should only be available to Admin or Editor users.
+  const hasMenu = contextSrv.hasPermission(AccessControlAction.DashboardsCreate);
 
   return (
     <>
       <div className={styles.layout}>
         <Stack minWidth={0} gap={0.5} alignItems="center" flex={{ xs: 2, lg: 1 }}>
-          {!menuDockedAndOpen && (
+          {/* Psiphon change - show the menu toggle only for admin or editor users; other
+              users see the plain logo without a menu */}
+          {!menuDockedAndOpen && hasMenu && (
             <ToolbarButton
               narrow
               id={MEGA_MENU_TOGGLE_ID}
@@ -73,11 +80,13 @@ export const SingleTopBar = memo(function SingleTopBar({
               tooltip={t('navigation.megamenu.open', 'Open menu')}
             >
               <Stack gap={0} alignItems="center">
-                <Branding.MenuLogo className={styles.img} />
+                {/* Psiphon change - apply custom logo sizing class to menu logo */}
+                <Branding.MenuLogo className={styles.imgLogo} />
                 <Icon size="sm" name="angle-down" />
               </Stack>
             </ToolbarButton>
           )}
+          {!menuDockedAndOpen && !hasMenu && <Branding.MenuLogo className={styles.imgLogo} />}
           <Breadcrumbs breadcrumbs={breadcrumbs} className={styles.breadcrumbsWrapper} />
           {!showToolbarLevel && breadcrumbActions}
         </Stack>
@@ -90,7 +99,8 @@ export const SingleTopBar = memo(function SingleTopBar({
           data-testid={!showToolbarLevel ? Components.NavToolbar.container : undefined}
           minWidth={{ xs: 'unset', lg: 0 }}
         >
-          <TopSearchBarCommandPaletteTrigger />
+          {/* Psiphon change - hide search bar for non admin/editor users */}
+          {hasMenu && <TopSearchBarCommandPaletteTrigger />}
           {unifiedHistoryEnabled && !isSmallScreen && <HistoryContainer />}
           {!isSmallScreen && <QuickAdd />}
           <HelpTopBarButton isSmallScreen={isSmallScreen} />
@@ -131,6 +141,14 @@ const getStyles = (theme: GrafanaTheme2, menuDockedAndOpen: boolean) => ({
     alignSelf: 'center',
     height: theme.spacing(3),
     width: theme.spacing(3),
+  }),
+  // Psiphon change - add logo sizing class to fit aspect ratio of PDE logo (726x45)
+  imgLogo: css({
+    alignSelf: 'center',
+    height: theme.spacing(2),
+    width: theme.spacing(32.27),
+    maxWidth: '40vw',
+    objectFit: 'contain',
   }),
   kioskToggle: css({
     [theme.breakpoints.down('lg')]: {

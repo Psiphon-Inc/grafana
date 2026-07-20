@@ -8,7 +8,7 @@ import { useStyles2 } from '@grafana/ui';
 
 import { Branding } from '../Branding/Branding';
 import { BrandingSettings } from '../Branding/types';
-import { Footer } from '../Footer/Footer';
+// Psiphon change - Remove unused import after Psiphon changes
 
 interface InnerBoxProps {
   enterAnimation?: boolean;
@@ -24,23 +24,24 @@ export interface LoginLayoutProps {
   isChangingPassword?: boolean;
 }
 
+// Psiphon change - remove unused consts
 export const LoginLayout = ({ children, branding, isChangingPassword }: React.PropsWithChildren<LoginLayoutProps>) => {
   const loginStyles = useStyles2(getLoginStyles);
   const [startAnim, setStartAnim] = useState(false);
   const subTitle = branding?.loginSubtitle ?? Branding.GetLoginSubTitle();
-  const loginTitle = branding?.loginTitle ?? Branding.LoginTitle;
-  const loginBoxBackground = branding?.loginBoxBackground || Branding.LoginBoxBackground();
   const loginLogo = branding?.loginLogo;
-  const hideEdition = branding?.hideEdition ?? Branding.HideEdition;
+  // Psiphon change - remove unused const
 
   useEffect(() => setStartAnim(true), []);
 
+  // Psiphon changes - remove loginboxbackground styling because it looks bad with custom
+  // image, remove 'Welcome to Grafana' message. Remove footer.
   return (
     <Branding.LoginBackground
       className={cx(loginStyles.container, startAnim && loginStyles.loginAnim, branding?.loginBackground)}
     >
       <div className={loginStyles.loginMain}>
-        <div className={cx(loginStyles.loginContent, loginBoxBackground, 'login-content-box')}>
+        <div className={cx(loginStyles.loginContent, 'login-content-box')}>
           <div className={loginStyles.loginLogoWrapper}>
             <Branding.LoginLogo className={loginStyles.loginLogo} logo={loginLogo} />
             <div className={loginStyles.titleWrapper}>
@@ -49,17 +50,13 @@ export const LoginLayout = ({ children, branding, isChangingPassword }: React.Pr
                   <Trans i18nKey="login.layout.update-password">Update your password</Trans>
                 </h1>
               ) : (
-                <>
-                  <h1 className={loginStyles.mainTitle}>{loginTitle}</h1>
-                  {subTitle && <h3 className={loginStyles.subTitle}>{subTitle}</h3>}
-                </>
+                <>{subTitle && <h3 className={loginStyles.subTitle}>{subTitle}</h3>}</>
               )}
             </div>
           </div>
           <div className={loginStyles.loginOuterBox}>{children}</div>
         </div>
       </div>
-      {branding?.hideFooter ? <></> : <Footer hideEdition={hideEdition} customLinks={branding?.footerLinks} />}
     </Branding.LoginBackground>
   );
 };
@@ -102,8 +99,10 @@ export const getLoginStyles = (theme: GrafanaTheme2) => {
         opacity: 1,
       },
 
+      // Psiphon change - shift login box up a bit to look better with custom background image
       ['.login-content-box']: {
         opacity: 1,
+        marginTop: -10,
       },
     }),
     submitButton: css({

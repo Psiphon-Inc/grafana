@@ -87,10 +87,13 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 	hasAccess := ac.HasAccess(s.accessControl, c)
 	treeRoot := &navtree.NavTreeRoot{}
 	ctx := c.Req.Context()
+	// Psiphon change - add check to see if user is admin or editor
+	hasEditorOrAdminRole := c.GetOrgRole() == org.RoleAdmin || c.GetOrgRole() == org.RoleEditor
 
 	treeRoot.AddSection(s.getHomeNode(c, prefs))
 
-	if hasAccess(ac.EvalPermission(dashboards.ActionDashboardsRead)) {
+	// Psiphon change - check user role before adding starred items to nav tree
+	if hasAccess(ac.EvalPermission(dashboards.ActionDashboardsRead)) && hasEditorOrAdminRole {
 		starredItemsLinks, err := s.buildStarredItemsNavLinks(c)
 		if err != nil {
 			return nil, err
@@ -107,10 +110,11 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 		})
 	}
 
-	if c.IsPublicDashboardView() || hasAccess(ac.EvalAny(
+	// Psiphon change - add check for hasEditorOrAdminRole
+	if (c.IsPublicDashboardView() || hasAccess(ac.EvalAny(
 		ac.EvalPermission(dashboards.ActionFoldersRead), ac.EvalPermission(dashboards.ActionFoldersCreate),
 		ac.EvalPermission(dashboards.ActionDashboardsRead), ac.EvalPermission(dashboards.ActionDashboardsCreate)),
-	) {
+	)) && hasEditorOrAdminRole {
 		dashboardChildLinks := s.buildDashboardNavLinks(c)
 
 		dashboardLink := &navtree.NavLink{
@@ -126,7 +130,8 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 		treeRoot.AddSection(dashboardLink)
 	}
 
-	if s.cfg.ExploreEnabled && hasAccess(ac.EvalPermission(ac.ActionDatasourcesExplore)) {
+	// Psiphon change - check user role before adding Explore to nav tree
+	if s.cfg.ExploreEnabled && hasAccess(ac.EvalPermission(ac.ActionDatasourcesExplore)) && hasEditorOrAdminRole {
 		treeRoot.AddSection(&navtree.NavLink{
 			Text:       "Explore",
 			Id:         navtree.NavIDExplore,
@@ -137,7 +142,9 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 		})
 	}
 
-	if hasAccess(ac.EvalPermission(ac.ActionDatasourcesExplore)) {
+	// Psiphon change - check user role before adding Drilldown to nav tree (new nav
+	// section since 11.0; gated for the same reason as Explore)
+	if hasAccess(ac.EvalPermission(ac.ActionDatasourcesExplore)) && hasEditorOrAdminRole {
 		treeRoot.AddSection(&navtree.NavLink{
 			Text:       "Drilldown",
 			Id:         navtree.NavIDDrilldown,
@@ -155,8 +162,9 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 	_, uaIsDisabledForOrg := s.cfg.UnifiedAlerting.DisabledOrgs[c.GetOrgID()]
 	uaVisibleForOrg := s.cfg.UnifiedAlerting.IsEnabled() && !uaIsDisabledForOrg
 
+	// Psiphon change - check user role before adding to nav tree
 	if uaVisibleForOrg {
-		if alertingSection := s.buildAlertNavLinks(c); alertingSection != nil {
+		if alertingSection := s.buildAlertNavLinks(c); alertingSection != nil && hasEditorOrAdminRole {
 			treeRoot.AddSection(alertingSection)
 		}
 	}
@@ -173,7 +181,8 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 		return nil, err
 	}
 
-	s.addHelpLinks(treeRoot, c)
+	// Psiphon change - comment out help links in nav tree
+	//s.addHelpLinks(treeRoot, c)
 
 	if err := s.addAppLinks(treeRoot, c); err != nil {
 		return nil, err

@@ -2,11 +2,10 @@
 
 You have been added to {{.OrgName}}
 
-{{.InvitedBy}} has added you to the {{.OrgName}} organization in Grafana.
+{{.InvitedBy}} has added you to the {{.OrgName}} organization.
 Once logged in, {{.OrgName}} will be available in the left side menu, in the dropdown below your username.
 
 Log in now:
 {{.AppUrl}}
 
-
-Sent by Grafana v{{.BuildVersion}} (c) {{now | date "2006"}} Grafana Labs
+Sent by PDE v{{.BuildVersion}} (c) {{now | date "2006"}} Psiphon Inc.
