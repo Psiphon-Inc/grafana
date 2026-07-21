@@ -47,8 +47,12 @@ This is a summary of the Psiphon specific content changes.
   `ResultItem.tsx`, `QueryOperationAction.tsx`).
 - Change favicon and apple-touch icon to Psiphon logos and app title to
   "Psiphon" (`pkg/api/index.go`).
-- Add PDE logo (726x45 wordmark) as the top bar and mega menu header logo with
-  custom sizing (`SingleTopBar.tsx`, `MegaMenuHeader.tsx`).
+- Add PDE logo in two variants: the wide wordmark (726x45,
+  `psiphon_pde_icon.png`) in the top bar with custom sizing
+  (`SingleTopBar.tsx` / `Branding.MenuLogo`), and the square Psiphon icon
+  (`psiphon-logo-512x512.png`) in the mega menu header where the wordmark does
+  not fit next to the org switcher and dock button
+  (`MegaMenuHeader.tsx` / `Branding.MenuLogoIcon`).
 - Change `$blue-base` to Psiphon orange in
   `public/sass/_variables.light.generated.scss`.
 

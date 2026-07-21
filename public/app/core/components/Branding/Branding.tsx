@@ -56,6 +56,12 @@ const MenuLogo: FC<BrandComponentProps> = ({ className }) => {
   return <img className={className} src={psiphonPdeIconPng} alt="Psiphon Data Engine" />;
 };
 
+// Psiphon change - square icon variant for narrow slots (mega menu header), where the
+// wide PDE wordmark does not fit next to the org switcher and dock button
+const MenuLogoIcon: FC<BrandComponentProps> = ({ className }) => {
+  return <img className={className} src={psiphonLogoPng} alt="Psiphon Data Engine" />;
+};
+
 const LoginBoxBackground = () => {
   const theme = useTheme2();
   return css({
@@ -69,6 +75,8 @@ export class Branding {
   static LoginLogo = LoginLogo;
   static LoginBackground = LoginBackground;
   static MenuLogo = MenuLogo;
+  // Psiphon change - square icon variant for narrow slots
+  static MenuLogoIcon = MenuLogoIcon;
   static LoginBoxBackground = LoginBoxBackground;
   static AppTitle = 'Psiphon Data Engine';
   // Psiphon note - LoginTitle is never rendered (our LoginLayout removes the welcome

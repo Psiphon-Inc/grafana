@@ -34,7 +34,9 @@ export function MegaMenuHeader({ handleMegaMenu, handleDockedMenu, onClose }: Pr
           onClick={handleMegaMenu}
           tooltip={t('navigation.megamenu.close', 'Close menu')}
         >
-          <Branding.MenuLogo className={styles.img} />
+          {/* Psiphon change - use the square Psiphon icon here; the wide PDE wordmark
+              does not fit next to the org switcher and dock button in the menu pane */}
+          <Branding.MenuLogoIcon className={styles.img} />
         </ToolbarButton>
         <OrganizationSwitcher />
       </Stack>
@@ -82,13 +84,10 @@ const getStyles = (theme: GrafanaTheme2) => ({
     height: getChromeHeaderLevelHeight(),
     flexShrink: 0,
   }),
-  // Psiphon change - size the logo slot to fit the aspect ratio of the PDE logo (726x45)
   img: css({
     alignSelf: 'center',
-    height: theme.spacing(2),
-    width: theme.spacing(32.27),
-    maxWidth: '30vw',
-    objectFit: 'contain',
+    height: theme.spacing(3),
+    width: theme.spacing(3),
   }),
   mobileCloseButton: css({
     [theme.breakpoints.up('md')]: {
